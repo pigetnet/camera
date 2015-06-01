@@ -1,0 +1,24 @@
+#!/bin/bash
+description "Test Camera module"
+cameraState=$(vcgencmd get_camera)
+
+if [[ $cameraState == "supported=0 detected=0" ]];then
+	colecho "Camera Module not detected" $ERR
+	exit 1
+else
+	mkdir /tmp/cameraModuleTest
+	raspistill -v -o /tmp/cameraModuleTest/test.jpg
+	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234");
+	cd /tmp/cameraModuleTest; python -m SimpleHTTPServer 1234 &
+	linebreak
+	linebreak
+	echo "Go to "
+	listecho $(cat /etc/hostname)":1234"
+	listecho $(cat /etc/hostname)".local:1234"
+	listecho $(ipAddress)":1234"
+	echo "and check if your camera module works"
+	colecho "Press any key to stop sharing pictures" $OK
+	read
+	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234");
+	rm -rf /tmp/cameraModuleTest
+fi
