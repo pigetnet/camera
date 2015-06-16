@@ -28,7 +28,7 @@ else
 		console
 	done
 
-	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234");
+	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234") > /dev/null 2>&1;
 	cd /tmp/webcamTest; python -m SimpleHTTPServer 1234 &
 	linebreak
 	linebreak
@@ -41,7 +41,8 @@ else
 	read
 	linebreak
 	linebreak
-	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234");
+	messagebox "Stopping webserver"
+	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234") > /dev/null 2>&1;
 	rm -rf /tmp/webcamTest
 fi
 

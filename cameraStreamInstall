@@ -1,0 +1,25 @@
+#!/bin/bash
+# Based on the mjpg-streamer by jacksonliam
+# For more information
+# https://github.com/jacksonliam/mjpg-streamer
+
+description "Install mjpeg-streamer"
+
+messagebox "Install prerequisites"
+apt-get update
+installer libv4l-dev
+installer libjpeg8-dev
+installer imagemagick
+installer cmake
+
+
+messagebox "Link library videodev2 to videodev"
+ln -sv /usr/include/linux/videodev2.h /usr/include/linux/videodev.h
+
+messagebox "Download mjpeg-streamer from svn to /opt/mjpg-streamer"
+
+gitcloner jacksonliam/mjpg-streamer /opt/mjpg-streamer
+cd /opt/mjpg-streamer/mjpg-streamer-experimental
+make clean all
+make DESTDIR=/usr install
+

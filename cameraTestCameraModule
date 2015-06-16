@@ -3,12 +3,15 @@ description "Test Camera module"
 cameraState=$(vcgencmd get_camera)
 
 if [[ $cameraState == "supported=0 detected=0" ]];then
-	colecho "Camera Module not detected" $ERR
+	colecho "Camera Module not enabled" $ERR
+	cameraEnableCameraModule
 	exit 1
+elif [[ $cameraState == "supported=1 detected=0" ]];then
+	colecho "Camera Module enable but not detected" $ERR
 else
 	mkdir /tmp/cameraModuleTest
 	raspistill -v -o /tmp/cameraModuleTest/test.jpg
-	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234");
+	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234") > /dev/null 2>&1;
 	cd /tmp/cameraModuleTest; python -m SimpleHTTPServer 1234 &
 	linebreak
 	linebreak
@@ -19,6 +22,7 @@ else
 	echo "and check if your camera module works"
 	colecho "Press any key to stop sharing pictures" $OK
 	read
-	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234");
+	messagebox "Stopping webserver"
+	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234") > /dev/null 2>&1;
 	rm -rf /tmp/cameraModuleTest
 fi

@@ -1,0 +1,12 @@
+#!/bin/bash
+installer supervisor
+cat <<\EOF > /etc/supervisor/conf.d/mjpegstreamer.conf
+[program:mjpegstreamer]
+command=/opt/piget/camera/cameraTestStream
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/mjpegstreamer.log
+redirect_stderr=true
+EOF
+supervisorctl reread
+supervisorctl update
