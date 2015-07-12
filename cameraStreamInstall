@@ -23,13 +23,13 @@ make clean all
 make DESTDIR=/usr install
 mkdir /opt/user/config/camera
 
-if [ -z /boot/piget/config/camera_pi.json ];then
+if [ -z /boot/piget/config/camera/camera_pi.json ];then
 	cp /boot/piget/config/camera/camera_pi.json /opt/user/config/camera/camera_pi.json
 else
 	cp /opt/piget/camera/default/camera_pi.json /opt/user/config/camera/camera_pi.json
 fi
 
-if [ -z /boot/piget/config/camera_usb.json ];then
+if [ -z /boot/piget/config/camera/camera_usb.json ];then
 	cp /boot/piget/config/camera/camera_usb.json /opt/user/config/camera/camera_usb.json
 else
 	cp /opt/piget/camera/default/camera_usb.json /opt/user/config/camera/camera_usb.json
