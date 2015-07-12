@@ -6,7 +6,6 @@
 description "Install mjpeg-streamer"
 
 messagebox "Install prerequisites"
-apt-get update
 installer libv4l-dev
 installer libjpeg8-dev
 installer imagemagick
