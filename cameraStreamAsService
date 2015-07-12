@@ -2,7 +2,7 @@
 installer supervisor
 cat <<\EOF > /etc/supervisor/conf.d/mjpegstreamer.conf
 [program:mjpegstreamer]
-command=/opt/piget/camera/cameraTestStream
+command=/opt/piget/camera/cameraStream
 autostart=true
 autorestart=true
 stdout_logfile=/var/log/mjpegstreamer.log
