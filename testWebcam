@@ -29,10 +29,10 @@ else
 
 	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234") > /dev/null 2>&1;
 	cd /tmp/webcamTest; python -m SimpleHTTPServer 1234 &
-	linebreak
-	linebreak
-	linebreak
-	linebreak
+	/show/linebreak
+	/show/linebreak
+	/show/linebreak
+	/show/linebreak
 	/show/listecho "Images available at"
 	/show/listecho $(cat /etc/hostname)":1234" $OK
 	/show/listecho $(cat /etc/hostname)".local:1234" $OK
