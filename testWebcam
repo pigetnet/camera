@@ -1,23 +1,22 @@
 #!/bin/bash
-description "Test Webcam"
-messagebox "Installing Tools"
-installer v4l-utils
-installer fswebcam
-messagebox "Detect Camera"
+/show/listecho "Test webcam" $OK
+/system/install v4l-utils
+/system/install fswebcam
+/show/listecho "Detect Camera" $OK
 console
 v4l2-ctl --all
 webcam_detected=$?
 console
 if [ $webcam_detected == 1 ]
 	then
-	colecho "No webcam detected" $ERR
+	/show/listecho "No webcam detected" $ERR
 	exit 1
 else
-	messagebox "Detect Resolutions"
+	/show/listecho "Detect Resolutions" $OK
 	resolutions=$(v4l2-ctl --list-formats-ext |grep "Size:"|awk '{print $3}')
 	echo $resolutions
-	colecho "Test all resolutions"
-	colecho "Pictures will be saved inside /tmp/webcamTest" $INFO
+	/show/listecho "Test all resolutions" $OK
+	/show/listecho "Pictures will be saved inside /tmp/webcamTest" $INFO
 	mkdir /tmp/webcamTest
 	name=$(lsusb |grep -i "cam" |awk '{ $1=""; $2=""; $3=""; $4=""; $5=""; $6=""; print $0 }'|tr -d ' ')
 
@@ -32,16 +31,15 @@ else
 	cd /tmp/webcamTest; python -m SimpleHTTPServer 1234 &
 	linebreak
 	linebreak
-	echo "Go to "
-	listecho $(cat /etc/hostname)":1234"
-	listecho $(cat /etc/hostname)".local:1234"
-	listecho $(ipAddress)":1234"
-	echo "and check if your webcam works"
-	colecho "Press any key to stop sharing pictures" $OK
+	linebreak
+	linebreak
+	/show/listecho "Images available at"
+	/show/listecho $(cat /etc/hostname)":1234" $OK
+	/show/listecho $(cat /etc/hostname)".local:1234" $OK
+	/show/listecho $(ipAddress)":1234" $OK
+	/show/listecho "Press any key to stop sharing pictures" $WARN
 	read
-	linebreak
-	linebreak
-	messagebox "Stopping webserver"
+	/show/listecho "Stopping webserver" $OK
 	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234") > /dev/null 2>&1;
 	rm -rf /tmp/webcamTest
 fi

@@ -1,0 +1,27 @@
+#!/bin/bash
+/show/listecho "Test Camera module" $OK
+cameraState=$(vcgencmd get_camera)
+
+if [[ $cameraState == "supported=0 detected=0" ]];then
+	/show/listecho "Camera Module not enabled" $ERR
+	/do/camera/enableCameraModule
+	exit 1
+elif [[ $cameraState == "supported=1 detected=0" ]];then
+	/show/listecho "Camera Module enable but not detected" $ERR
+else
+	mkdir /tmp/cameraModuleTest
+	raspistill -v -o /tmp/cameraModuleTest/test.jpg
+	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234") > /dev/null 2>&1;
+	cd /tmp/cameraModuleTest; python -m SimpleHTTPServer 1234 &
+	linebreak
+	linebreak
+	/show/listecho "Images available at"
+	/show/listecho $(cat /etc/hostname)":1234" $OK
+	/show/listecho $(cat /etc/hostname)".local:1234" $OK
+	/show/listecho $(ipAddress)":1234" $OK
+	/show/listecho "Press any key to stop sharing pictures" $WARN
+	read
+	/show/listecho "Stopping webserver" $OK
+ 	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234") > /dev/null 2>&1;
+	rm -rf /tmp/cameraModuleTest
+fi

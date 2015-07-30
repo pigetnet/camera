@@ -1,6 +1,6 @@
 #!/bin/bash
 # This code is directly copied from raspi-config
-description "Enable camera module"
+/show/description "Enable camera module"
 
 CONFIG=/boot/config.txt
 
@@ -40,7 +40,7 @@ end
 EOF
 }
 
-messagebox "Modify $CONFIG"
+/show/listecho "Modify $CONFIG" $OK
 set_config_var start_x 1 $CONFIG
 CUR_GPU_MEM=$(get_config_var gpu_mem $CONFIG)
 if [ -z "$CUR_GPU_MEM" ] || [ "$CUR_GPU_MEM" -lt 128 ]; then
@@ -52,4 +52,4 @@ sed $CONFIG -i -e "s/^fixup_file/#fixup_file/"
 cat /boot/config.txt
 
 
-description "You need to reboot"
+/show/listecho "You need to reboot" $ERR

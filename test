@@ -1,8 +1,8 @@
 #!/bin/bash
-description "Autodetect camera"
+/show/description "Autodetect camera"
 cameraState=$(vcgencmd get_camera)
 if [[ $cameraState == "supported=1 detected=1" ]];then
-	cameraTestCameraModule
+	/do/camera/testCameraModule
 else
-	cameraTestWebcam
+	/do/camera/testWebcam
 fi
