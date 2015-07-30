@@ -36,7 +36,7 @@ else
 	/show/listecho "Images available at"
 	/show/listecho $(cat /etc/hostname)":1234" $OK
 	/show/listecho $(cat /etc/hostname)".local:1234" $OK
-	/show/listecho $(ipAddress)":1234" $OK
+	/show/listecho $(/show/ipAddress)":1234" $OK
 	/show/listecho "Press any key to stop sharing pictures" $WARN
 	read
 	/show/listecho "Stopping webserver" $OK
