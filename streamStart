@@ -1,4 +1,0 @@
-#!/bin/bash
-/show/listecho "Start mjpegstreamer service" $OK
-supervisorctl start mjpegstreamer
-

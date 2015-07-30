@@ -1,0 +1,4 @@
+#!/bin/bash
+/show/description "Install mjpeg streamer"
+/system/downloadModule mjpeg-streamer
+/do/mjpeg-streamer/install
