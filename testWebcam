@@ -22,9 +22,9 @@ else
 
 	for resolution in $resolutions
 	do
-		console
+		/show/console
 		fswebcam -r "$resolution" -S 5 --save "/tmp/webcamTest"/"$name"-test"$resolution".jpg
-		console
+		/show/console
 	done
 
 	kill -9 $(pgrep -f "python -m SimpleHTTPServer 1234") > /dev/null 2>&1;
