@@ -3,10 +3,10 @@
 /system/install v4l-utils
 /system/install fswebcam
 /show/listecho "Detect Camera" $OK
-console
+/show/console
 v4l2-ctl --all
 webcam_detected=$?
-console
+/show/console
 if [ $webcam_detected == 1 ]
 	then
 	/show/listecho "No webcam detected" $ERR
