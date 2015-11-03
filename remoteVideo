@@ -1,0 +1,21 @@
+#!/bin/bash
+#Experimental
+/show/description "EXPERIMENTAL"
+/show/listecho "1 = file"
+/show/listecho "2 = fps"
+/show/listecho "3 = time in s"
+
+ip=$1
+file=$2
+fps=25
+timelimit=$3
+
+
+if [ $# -eq 3 ];then
+	if [ -e $file ];then
+		rm -vf $file
+	fi
+	avconv -r $2 -f mjpeg -i $1 $2 -timelimit $3
+else
+ echo "err :args"
+fi
