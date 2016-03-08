@@ -2,6 +2,13 @@
 # This code is directly copied from raspi-config
 /show/description "Enable camera module"
 
+if [[ $# -ne 0 ]] || [[ $1 == "--help" ]] || [[ $(id -u) -ne 0 ]];then
+	/show/messagebox "$0"
+	/show/info '[beta] [camera] [rpicam]'
+	/show/usageDescription "Enable camera module in /boot/config.txt"
+	/show/usage "$0"
+else
+
 CONFIG=/boot/config.txt
 
 set_config_var() {
@@ -54,3 +61,4 @@ cat /boot/config.txt
 
 /show/listecho "You need to reboot" $ERR
 
+fi
